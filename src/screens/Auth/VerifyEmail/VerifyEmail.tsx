@@ -71,9 +71,8 @@ const VerifyEmail = (): JSX.Element => {
     let isActive = true;
     const verifyEmailToken = async (): Promise<void> => {
       if (!token) {
-        if (isActive) {
-          setVerificationState('error');
-        }
+        setVerificationState('error');
+
         return;
       }
 
@@ -92,6 +91,7 @@ const VerifyEmail = (): JSX.Element => {
           removeItem('emailNotVerified');
           removeItem('unverifiedEmail');
         } else {
+          console.log('Hitting line 95');
           setVerificationState('error');
         }
       } catch (error: unknown) {
@@ -108,6 +108,7 @@ const VerifyEmail = (): JSX.Element => {
           err.graphQLErrors?.[0]?.extensions?.code === 'UNAUTHENTICATED' ||
           err.message?.toLowerCase().includes('invalid arguments')
         ) {
+          console.log('Hitting line 111');
           NotificationToast.error(t('loginRequired'));
         } else {
           errorHandler(t, error);
